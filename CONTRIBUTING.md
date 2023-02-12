@@ -64,8 +64,8 @@ To generate a pull request, please consider following [Pull Request Template](pr
 
 That's it! Thank you for your contribution!
 
-[coc]: (https://github.com/BirjuVachhani/pictures_stack/blob/main/CODE_OF_CONDUCT.md)
-[issue_template]: (https://github.com/BirjuVachhani/pictures_stack/blob/main/ISSUE_TEMPLATE.md)
+[coc]: (https://github.com/BirjuVachhani/cursor_trail/blob/main/CODE_OF_CONDUCT.md)
+[issue_template]: (https://github.com/BirjuVachhani/cursor_trail/blob/main/ISSUE_TEMPLATE.md)
 [pr]: (https://github.com/BirjuVachhani/spider/blob/main/PULL_REQUEST_TEMPLATE.md)
-[pulls]: (https://github.com/BirjuVachhani/pictures_stack/pulls)
-[license]: (https://github.com/BirjuVachhani/pictures_stack/blob/main/LICENSE)
+[pulls]: (https://github.com/BirjuVachhani/cursor_trail/pulls)
+[license]: (https://github.com/BirjuVachhani/cursor_trail/blob/main/LICENSE)

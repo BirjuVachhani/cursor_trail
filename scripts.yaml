@@ -1,4 +1,8 @@
-clean: flutter clean && flutter pub get
+clean:
+  - flutter clean && flutter pub get
+  - cd example && flutter clean && flutter pub get
+format:
+  - dart format --fix .
 build:
-  web: flutter build web
-  macos: flutter build macos
+  web: cd example && flutter build web
+  macos: cd example && flutter build macos

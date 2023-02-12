@@ -2,11 +2,10 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cursor_trail/cursor_trail.dart';
+import 'package:example/utils/universal/universal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pictures_stack/utils/universal/universal.dart';
-
-import 'pictures_stack.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,11 +39,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<String> images = [];
-
   bool isLoading = true;
-
   double threshold = 80;
-
   int currentIndex = -1;
 
   @override
@@ -97,17 +93,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           if (!isLoading)
             Expanded(
-              child: PicturesStack(
-                images: images,
+              child: CursorTrail(
                 threshold: threshold,
-                itemBuilder: (context, index, maxSize) => CachedNetworkImage(
-                  imageUrl: images[index],
-                  fit: BoxFit.contain,
-                  // width: maxSize.width,
-                  // height: maxSize.height,
-                  fadeInDuration: Duration.zero,
-                  fadeOutDuration: Duration.zero,
-                ),
+                itemCount: images.length,
+                // maxVisibleCount: 10,
+                itemBuilder: (context, index, maxSize) {
+                  return CachedNetworkImage(
+                    imageUrl: images[index],
+                    fit: BoxFit.contain,
+                    fadeInDuration: Duration.zero,
+                    fadeOutDuration: Duration.zero,
+                  );
+                },
                 onImageChanged: (index) {
                   currentIndex = index;
                   setState(() {});

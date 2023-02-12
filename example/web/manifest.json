@@ -1,6 +1,6 @@
 {
-    "name": "Pictures Stack",
-    "short_name": "Pictures Stack",
+    "name": "Cursor Trail Demo",
+    "short_name": "Cursor Trail",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

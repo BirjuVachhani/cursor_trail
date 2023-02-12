@@ -1,27 +1,28 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
+import 'cursor_trail_widget.dart';
 
 class FullScreenViewer extends StatefulWidget {
   final ValueChanged<int> onImageChanged;
   final int currentIndex;
-  final List<String> images;
+  final int? itemCount;
   final Size maxSize;
-  final MapEntry<String, FractionalOffset> current;
   final FractionalOffset currentPosition;
   final VoidCallback onHide;
+  final IndexedItemBuilder itemBuilder;
 
   const FullScreenViewer({
     super.key,
     required this.onImageChanged,
     required this.currentIndex,
-    required this.images,
+    required this.itemCount,
     required this.maxSize,
-    required this.current,
     required this.currentPosition,
     required this.onHide,
+    required this.itemBuilder,
   });
 
   @override
@@ -69,7 +70,6 @@ class _FullScreenViewerState extends State<FullScreenViewer>
 
   @override
   Widget build(BuildContext context) {
-    final url = widget.images[currentIndex];
     return LayoutBuilder(builder: (context, constraints) {
       return Stack(
         fit: StackFit.expand,
@@ -94,7 +94,7 @@ class _FullScreenViewerState extends State<FullScreenViewer>
                 curve: Curves.easeOutSine,
               ).transform(controller.value);
               final Offset pos =
-              widget.currentPosition.alongSize(constraints.biggest);
+                  widget.currentPosition.alongSize(constraints.biggest);
 
               final Offset? position = Offset.lerp(
                 pos,
@@ -116,14 +116,8 @@ class _FullScreenViewerState extends State<FullScreenViewer>
                 ),
               );
             },
-            child: CachedNetworkImage(
-              imageUrl: url,
-              fit: BoxFit.contain,
-              // width: constraints.maxWidth,
-              // height: constraints.maxHeight,
-              fadeInDuration: Duration.zero,
-              fadeOutDuration: Duration.zero,
-            ),
+            child:
+                widget.itemBuilder(context, currentIndex, constraints.biggest),
           ),
           if (showControls)
             Positioned.fill(
@@ -134,7 +128,8 @@ class _FullScreenViewerState extends State<FullScreenViewer>
                       label: 'PREV',
                       child: GestureDetector(
                         onTap: () {
-                          currentIndex = --currentIndex % widget.images.length;
+                          currentIndex =
+                              --currentIndex % (widget.itemCount ?? 1);
                           setState(() {});
                           widget.onImageChanged(currentIndex);
                         },
@@ -160,7 +155,10 @@ class _FullScreenViewerState extends State<FullScreenViewer>
                       label: 'NEXT',
                       child: GestureDetector(
                         onTap: () {
-                          currentIndex = ++currentIndex % widget.images.length;
+                          currentIndex = ++currentIndex;
+                          if (widget.itemCount != null) {
+                            currentIndex %= widget.itemCount!;
+                          }
                           setState(() {});
                           widget.onImageChanged(currentIndex);
                         },

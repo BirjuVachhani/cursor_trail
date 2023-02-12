@@ -1,17 +1,17 @@
-name: pictures_stack
+name: cursor_trail
 description: A pictures stack that follow your cursor.
-publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.1.0
+
+homepage: https://github.com/birjuvachhani/cursor_trail
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=2.19.0 <3.0.0'
+  flutter: ">=3.7.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.5
-  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
@@ -19,4 +19,5 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 
 flutter:
-  uses-material-design: true
+
+scripts: scripts.yaml

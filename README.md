@@ -1,4 +1,4 @@
-# pictures_stack
+# cursor_trail
 
 A pictures stack that follow your cursor.
 
