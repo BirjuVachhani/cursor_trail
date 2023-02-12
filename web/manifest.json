@@ -1,11 +1,11 @@
 {
-    "name": "pictures_stack",
-    "short_name": "pictures_stack",
+    "name": "Pictures Stack",
+    "short_name": "Pictures Stack",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A pictures stack that follow your cursor.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

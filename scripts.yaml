@@ -1,0 +1,4 @@
+clean: flutter clean && flutter pub get
+build:
+  web: flutter build web
+  macos: flutter build macos
