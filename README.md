@@ -1,14 +1,6 @@
 # cursor_trail
 
-
-
-
-
-
-https://user-images.githubusercontent.com/20423471/218331541-9107697c-9d83-4faa-9374-00ef952889e0.mp4
-
-
-
+<img src="https://user-images.githubusercontent.com/20423471/218333478-80a28b55-c7f3-40f1-b9ed-2a492b5d5408.gif" width="100%"/>
 
 A pictures stack that follow your cursor.
 
