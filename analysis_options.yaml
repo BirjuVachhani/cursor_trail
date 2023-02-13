@@ -9,3 +9,4 @@ linter:
      avoid_print: true
      prefer_single_quotes: true
      use_super_parameters: true
+     public_member_api_docs: true

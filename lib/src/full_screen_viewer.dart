@@ -5,18 +5,33 @@ import 'package:flutter/scheduler.dart';
 
 import 'cursor_trail_widget.dart';
 
+/// A full screen viewer that is shown when an item is tapped.
 class FullScreenViewer extends StatefulWidget {
-  final ValueChanged<int> onImageChanged;
+  /// Called when the item changes.
+  final ValueChanged<int> onItemChanged;
+
+  /// The index of the current item.
   final int currentIndex;
+
+  /// The total number of items.
   final int? itemCount;
+
+  /// The max allowed size of the item.
   final Size maxSize;
+
+  /// The current fractional position of the item.
   final FractionalOffset currentPosition;
+
+  /// Called when the full screen viewer is hidden.
   final VoidCallback onHide;
+
+  /// Builds the item at the given index.
   final IndexedItemBuilder itemBuilder;
 
+  /// Creates a [FullScreenViewer].
   const FullScreenViewer({
     super.key,
-    required this.onImageChanged,
+    required this.onItemChanged,
     required this.currentIndex,
     required this.itemCount,
     required this.maxSize,
@@ -31,10 +46,13 @@ class FullScreenViewer extends StatefulWidget {
 
 class _FullScreenViewerState extends State<FullScreenViewer>
     with SingleTickerProviderStateMixin {
+  /// The current index of the item.
   late int currentIndex = widget.currentIndex;
 
+  /// The animation controller.
   late AnimationController controller;
 
+  /// Whether to show the controls.
   bool showControls = false;
 
   @override
@@ -131,7 +149,7 @@ class _FullScreenViewerState extends State<FullScreenViewer>
                           currentIndex =
                               --currentIndex % (widget.itemCount ?? 1);
                           setState(() {});
-                          widget.onImageChanged(currentIndex);
+                          widget.onItemChanged(currentIndex);
                         },
                         child: Container(
                           color: Colors.transparent,
@@ -160,7 +178,7 @@ class _FullScreenViewerState extends State<FullScreenViewer>
                             currentIndex %= widget.itemCount!;
                           }
                           setState(() {});
-                          widget.onImageChanged(currentIndex);
+                          widget.onItemChanged(currentIndex);
                         },
                         child: Container(
                           color: Colors.transparent,
@@ -194,16 +212,27 @@ class _FullScreenViewerState extends State<FullScreenViewer>
   }
 }
 
+/// A widget that shows a [label] text as a cursor.
 class TextCursor extends StatefulWidget {
+  /// The label to show.
   final String label;
+
+  /// The font size of the label.
   final double fontSize;
+
+  /// The child widget on which the cursor is shown when hovered.
   final Widget child;
 
+  /// The color of the cursor. Defaults to [Colors.white].
+  final Color? color;
+
+  /// Creates a [TextCursor].
   const TextCursor({
     super.key,
     required this.label,
     this.fontSize = 20,
     required this.child,
+    this.color,
   });
 
   @override
@@ -211,8 +240,10 @@ class TextCursor extends StatefulWidget {
 }
 
 class _TextCursorState extends State<TextCursor> {
+  /// The position of the cursor.
   Offset position = Offset.zero;
 
+  /// Whether the cursor is hovering.
   bool hovering = false;
 
   @override
@@ -249,7 +280,7 @@ class _TextCursorState extends State<TextCursor> {
                   widget.label,
                   style: TextStyle(
                     fontSize: widget.fontSize,
-                    color: Colors.white,
+                    color: widget.color ?? Colors.white,
                   ),
                 ),
               ),

@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     fadeOutDuration: Duration.zero,
                   );
                 },
-                onImageChanged: (index) {
+                onItemChanged: (index) {
                   currentIndex = index;
                   setState(() {});
                 },
