@@ -6,9 +6,9 @@ version: 0.1.0
 homepage: https://github.com/birjuvachhani/cursor_trail
 
 screenshots:
-  - description: Logo
+  - description: Logo for the package
     path: resources/logo.png
-  - description: Demo
+  - description: Demo showing example app of the package.
     path: resources/demo.gif
 
 environment:
