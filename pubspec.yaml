@@ -1,5 +1,5 @@
 name: cursor_trail
-description: A pictures stack that follow your cursor.
+description: A widget that shows a trail of widgets/images as you move your cursor.
 
 version: 0.1.0
 
@@ -12,7 +12,7 @@ screenshots:
     path: resources/demo.gif
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
   flutter: ">=3.3.0"
 
 dependencies:
