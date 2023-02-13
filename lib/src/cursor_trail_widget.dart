@@ -191,7 +191,10 @@ class _CursorTrailState extends State<CursorTrail>
   }
 
   void onPointerMove(Offset localPosition, Size size) {
-    if (controller.isAnimating ||
+    // Return if there are no images or animation is in progress or full screen
+    // viewer is visible.
+    if (widget.itemCount == 0 ||
+        controller.isAnimating ||
         controller.status == AnimationStatus.completed) return;
 
     assert(size != Size.zero && size.isFinite);
