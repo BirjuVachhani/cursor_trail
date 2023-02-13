@@ -5,9 +5,15 @@ version: 0.1.0
 
 homepage: https://github.com/birjuvachhani/cursor_trail
 
+screenshots:
+  - description: Logo
+    path: resources/logo.png
+  - description: Demo
+    path: resources/demo.gif
+
 environment:
   sdk: '>=2.19.0 <3.0.0'
-  flutter: ">=3.7.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
