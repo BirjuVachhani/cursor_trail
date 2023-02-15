@@ -1,11 +1,14 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cursor_trail/cursor_trail.dart';
 import 'package:example/utils/universal/universal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,17 +19,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        colorSchemeSeed: Colors.blue,
-        scaffoldBackgroundColor: Colors.black,
-      ),
-      home: const MyHomePage(),
-    );
+    return AdaptiveTheme(
+        light: ThemeData(
+          useMaterial3: true,
+          brightness: Brightness.light,
+          colorSchemeSeed: Colors.blue,
+        ),
+        dark: ThemeData(
+          useMaterial3: true,
+          brightness: Brightness.dark,
+          colorSchemeSeed: Colors.blue,
+          scaffoldBackgroundColor: Colors.black,
+        ),
+        initial: AdaptiveThemeMode.dark,
+        builder: (light, dark) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            theme: light,
+            darkTheme: dark,
+            home: const MyHomePage(),
+          );
+        });
   }
 }
 
@@ -93,22 +107,30 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           if (!isLoading)
             Expanded(
-              child: CursorTrail(
-                threshold: threshold,
-                itemCount: images.length,
-                // maxVisibleCount: 10,
-                itemBuilder: (context, index, maxSize) {
-                  return CachedNetworkImage(
-                    imageUrl: images[index],
-                    fit: BoxFit.contain,
-                    fadeInDuration: Duration.zero,
-                    fadeOutDuration: Duration.zero,
-                  );
-                },
-                onItemChanged: (index) {
-                  currentIndex = index;
-                  setState(() {});
-                },
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Positioned.fill(
+                    child: CursorTrail(
+                      threshold: threshold,
+                      itemCount: images.length,
+                      // maxVisibleCount: 10,
+                      itemBuilder: (context, index, maxSize) {
+                        return CachedNetworkImage(
+                          imageUrl: images[index],
+                          fit: BoxFit.contain,
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,
+                        );
+                      },
+                      onItemChanged: (index) {
+                        currentIndex = index;
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                  const Positioned(right: 12, top: 12, child: TopBar()),
+                ],
               ),
             ),
           BottomBar(
@@ -118,6 +140,54 @@ class _MyHomePageState extends State<MyHomePage> {
             onThresholdChanged: (value) {
               setState(() => threshold = value);
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TopBar extends StatelessWidget {
+  const TopBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final adaptiveTheme = AdaptiveTheme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ButtonBar(
+            children: [
+              IconButton(
+                onPressed: () {
+                  launchUrlString(
+                      'https://github.com/birjuvachhani/cursor_trail');
+                },
+                icon: const Icon(FontAwesomeIcons.github),
+              ),
+              IconButton(
+                onPressed: () {
+                  adaptiveTheme.toggleThemeMode();
+                },
+                icon: Builder(
+                  builder: (context) {
+                    switch (adaptiveTheme.mode) {
+                      case AdaptiveThemeMode.light:
+                        return const Icon(Icons.wb_sunny);
+                      case AdaptiveThemeMode.dark:
+                        return const Icon(Icons.nightlight_round);
+                      case AdaptiveThemeMode.system:
+                        return const Icon(Icons.brightness_auto);
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -143,14 +213,14 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      color: Colors.white.withOpacity(0.1),
+      color: Theme.of(context).colorScheme.surfaceVariant,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14),
         child: LayoutBuilder(builder: (context, constraints) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Birju Vachhani'),
+              const Text('Cursor Trail'),
               if (constraints.maxWidth >= 370) ...[
                 Row(
                   mainAxisSize: MainAxisSize.min,
