@@ -1,7 +1,7 @@
 name: cursor_trail
 description: A widget that shows a trail of widgets/images as you move your cursor.
 
-version: 0.1.0
+version: 0.1.1
 
 homepage: https://github.com/birjuvachhani/cursor_trail
 
